@@ -1,0 +1,40 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+/* #login{
+    height: 100vh;
+    background-color: rgba(49, 46, 129,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.nav-item{
+    background-color: rgba(49, 46, 129,1);
+    margin: 5px;
+}
+.nav-link{
+    color: rgba(249, 250, 251, 1);
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+.nav-link:focus ,.nav-link:hover {
+    color: rgba(249, 250, 251, 1);
+}
+
+
+/*  */
+/* #register{
+    height: 100vh;
+    background-color: rgba(49, 46, 129,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.data-img{
+    height: 300px;
+}
