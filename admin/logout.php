@@ -2,7 +2,8 @@
     session_start();
 
     
-    session_destroy();    
-    echo "<Script>alert('You are now Log out');</Script>";
-    header('location:index.php');
+    session_destroy();  
+    echo "<Script>alert('You are now Log out......');
+            window.open('index.php', '_self');        
+        </Script>";  
 ?>

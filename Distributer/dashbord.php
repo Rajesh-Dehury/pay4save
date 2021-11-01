@@ -1,5 +1,15 @@
 <?php
     session_start();
+
+    if (isset($_SESSION['u_id'])) {
+    } else {
+    ?>
+        <Script>
+            alert("You Must Login First!!!!!!");
+            window.open('../index.php', '_self');
+        </Script>
+    <?php
+    }
 ?>
 
 <!doctype html>
@@ -24,9 +34,10 @@
         <nav class="navbar navbar-light bg-yellow-300 fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <!-- <img src="https://logodix.com/logo/787253.png" alt="" width="30" height="24"
-                        class="d-inline-block align-text-top"> -->
                     Pay4Save
+                </a>
+                <a href="addRetailer.php" class="text-decoration-none hover:text-white me-auto">
+                    <span>Add new Retailer</span>
                 </a>
                 <a href="logout.php" class="text-decoration-none hover:text-white">
                     <span>Log out</span><i class="bi bi-box-arrow-left ms-3" style="font-size: 25px;"></i>
@@ -54,7 +65,7 @@
                 </div>
                 <div class="col-sm-6 m-1 p-0">
                     <div class="col-sm-12">
-                        <p class="text-center p-3 bg-yellow-300">Retailer Details</p>
+                        <p class="text-center p-3 bg-yellow-300">Distributer Details</p>
                     </div>
                     <div class="col-sm-12 p-3 bg-yellow-100 shadow-md">
                         <div class="row">

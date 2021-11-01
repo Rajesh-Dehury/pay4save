@@ -11,7 +11,7 @@
         // echo $user_pass;
         // die();
 
-        $query="SELECT * FROM `login_data` WHERE `user_email` = '$user_email' AND `user_pass` ='$user_pass' AND `user_type` = '$user_type';";
+        $query="SELECT * FROM `user_data` WHERE `user_email` = '$user_email' AND `user_pass` ='$user_pass' AND `user_type` = '$user_type';";
 
         $result=mysqli_query($con,$query);
 
@@ -19,39 +19,45 @@
 
         $data=mysqli_fetch_assoc($result);
 
-        if($user_type == 'dist' || $user_type == 'reta'){
-            if($num_row < 1){
-                echo '<script>
-                alert("Invalid User or Password!!");
-                </script>';
-            }
-            else{
-                if($user_type == 'dist'){
-                    session_start();
-                    $_SESSION['u_id']=$data['login_id'];
-                    $_SESSION['u_mail']=$data['user_email'];
-                    $_SESSION['u_type']=$data['user_type'];
-
-                    echo '<script>
-                    alert("Login SuccessFull!!");
-                    window.location.href="Distributer/dashbord.php";
-                    </script>';
-                }else if($user_type == 'reta'){
-                    session_start();
-                    $_SESSION['u_id']=$data['login_id'];
-                    $_SESSION['u_mail']=$data['user_email'];
-                    $_SESSION['u_type']=$data['user_type'];
-
-                    echo '<script>
-                    alert("Login SuccessFull!!");
-                    window.location.href="Retailer/dashbord.php";
-                    </script>';   
-                }
-            }
-        }else{
+        if($data['active_status']=='' || $data['active_status'] == 'not approved'){
             echo '<script>
-                alert("Please Choose Your Type!!");
-                </script>';
+                    alert("You are Not allowed to login contact to your admin !!");
+                    </script>';
+        }else{
+            if($user_type == 'dist' || $user_type == 'reta'){
+                if($num_row < 1){
+                    echo '<script>
+                    alert("Invalid User or Password!!");
+                    </script>';
+                }
+                else{
+                    if($user_type == 'dist'){
+                        session_start();
+                        $_SESSION['u_id']=$data['user_id'];
+                        $_SESSION['u_mail']=$data['user_email'];
+                        $_SESSION['u_type']=$data['user_type'];
+    
+                        echo '<script>
+                        alert("Login SuccessFull!!");
+                        window.location.href="distributer/dashbord.php";
+                        </script>';
+                    }else if($user_type == 'reta'){
+                        session_start();
+                        $_SESSION['u_id']=$data['user_id'];
+                        $_SESSION['u_mail']=$data['user_email'];
+                        $_SESSION['u_type']=$data['user_type'];
+    
+                        echo '<script>
+                        alert("Login SuccessFull!!");
+                        window.location.href="retailer/dashbord.php";
+                        </script>';   
+                    }
+                }
+            }else{
+                echo '<script>
+                    alert("Please Choose Your Type!!");
+                    </script>';
+            }
         }
     }
 
@@ -63,6 +69,9 @@
         $name_as_pan = $_POST['name_as_pan'];
         $user_mobile = $_POST['user_mobile'];
         $user_email = $_POST['user_email'];
+
+        // pass
+        $user_c_pass = $_POST['user_c_pass'];
 
         // address
         $user_state = $_POST['user_state'];
@@ -88,10 +97,12 @@
         $add_front_tmp = $_FILES["add_front"]["tmp_name"];
         $add_back_tmp = $_FILES["add_back"]["tmp_name"];
 
-        $query = "INSERT INTO `user_data` (`user_id`, `user_type`, `user_name`, `name_as_pan`, `user_mobile`, `user_email`, `user_state`, `user_dist`, `user_pin`, `user_locality`, `pan_no`, `gst_no`, `add_p_type`, `add_p_no`, `pan_front`, `pan_back`, `add_front`, `add_back`, `create_at`) VALUES (NULL, '$user_type', '$user_name', '$name_as_pan', '$user_mobile', '$user_email', '$user_state', '$user_dist', '$user_pin', '$user_locality', '$pan_no', '$gst_no', '$add_p_type', '$add_p_no', '$pan_front', '$pan_back', '$add_front', '$add_back', current_timestamp())
+        $query = "INSERT INTO `user_data` (`user_id`, `user_type`, `user_name`, `name_as_pan`, `user_mobile`, `user_email`, `user_pass`,`user_state`, `user_dist`, `user_pin`, `user_locality`, `pan_no`, `gst_no`, `add_p_type`, `add_p_no`, `pan_front`, `pan_back`, `add_front`, `add_back`, `create_at`) VALUES (NULL, '$user_type', '$user_name', '$name_as_pan', '$user_mobile', '$user_email', '$user_c_pass','$user_state', '$user_dist', '$user_pin', '$user_locality', '$pan_no', '$gst_no', '$add_p_type', '$add_p_no', '$pan_front', '$pan_back', '$add_front', '$add_back', current_timestamp())
         ";
 
-        $path = "Admin/dataimages/".$pan_no;
+        // $pas_qry = "INSERT INTO `login_data` (`user_id`, `user_data_id`, `user_email`, `user_pass`, `user_type`) VALUES (NULL, '', '$user_email', '$user_c_pass', '$user_type')";
+
+        $path = "admin/dataimages/".$pan_no;
         // echo $query;
 
         $query_data = "SELECT * FROM `user_data` WHERE `pan_no` = '$pan_no'";
@@ -106,6 +117,7 @@
             if(!is_dir($path."/")){
                 if(mysqli_query($con,$query)){
                     mkdir($path."/");            
+                    // mysqli_query($con,$pas_qry);
                     move_uploaded_file($pan_front_tmp, $path."/$pan_front");
                     move_uploaded_file($pan_back_tmp, $path."/$pan_back");
                     move_uploaded_file($add_front_tmp, $path."/$add_front");
@@ -120,6 +132,7 @@
                 }
             }else{
                 if(mysqli_query($con,$query)){
+                    // mysqli_query($con,$pas_qry);
                     move_uploaded_file($pan_front_tmp, $path."/$pan_front");
                     move_uploaded_file($pan_back_tmp, $path."/$pan_back");
                     move_uploaded_file($add_front_tmp, $path."/$add_front");

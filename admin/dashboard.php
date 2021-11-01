@@ -36,15 +36,19 @@ include("includes/header.php");
                         <ul class="nav flex-column" id="nav_accordion">
                             <li class="nav-item">
                                 <a class="nav-link" href="dashboard.php"> Dashboard <i
-                                        class="fas fa-tachometer-alt float-end text-gray-50 text-2xl"></i></a>
+                                        class="fas fa-tachometer-alt float-end text-gray-50 text-2xl me-2"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard.php?content_id=createDistributer"> Add New Distributer <i
+                                        class="fas fa-user-plus float-end text-gray-50 text-2xl"></i></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="dashboard.php?content_id=viewAllRegReq"> Requests <i
-                                        class="fas fa-user float-end text-gray-50 text-2xl"></i></a>
+                                        class="fas fa-user float-end text-gray-50 text-2xl me-2"></i></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item0" href="#">
-                                    Distributer<i class="fas fa-plus-circle float-end text-gray-50 text-2xl"></i></a>
+                                    Distributer<i class="fas fa-plus-circle float-end text-gray-50 text-2xl me-2"></i></a>
                                 <ul id="menu_item0" class="submenu collapse" data-bs-parent="#nav_accordion">
                                     <li><a class="nav-link hover:bg-indigo-700"
                                             href="dashboard.php?content_id=viewApprDist">All Approved Distributer</a>
@@ -56,7 +60,7 @@ include("includes/header.php");
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item1" href="#">
-                                    Retailer<i class="fas fa-plus-circle float-end text-gray-50 text-2xl"></i></a>
+                                    Retailer<i class="fas fa-plus-circle float-end text-gray-50 text-2xl me-2"></i></a>
                                 <ul id="menu_item1" class="submenu collapse" data-bs-parent="#nav_accordion">
                                     <li><a class="nav-link hover:bg-indigo-700" href="dashboard.php?content_id=viewApprReta">All Approved Retailer</a></li>
                                     <li><a class="nav-link hover:bg-indigo-700"
@@ -66,7 +70,7 @@ include("includes/header.php");
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="logout.php"> Log out <i
-                                        class="fas fa-sign-out-alt float-end text-gray-50 text-2xl"></i></a>
+                                        class="fas fa-sign-out-alt float-end text-gray-50 text-2xl me-2"></i></a>
                             </li>
                         </ul>
                     </nav>
@@ -88,6 +92,9 @@ include("includes/header.php");
             break;                           
         case "viewDistributer":
             include ("viewDistributer.php");
+            break;                           
+        case "createDistributer":
+            include ("createDistributer.php");
             break;                           
         case "viewApprReta":
             include ("viewApprReta.php");

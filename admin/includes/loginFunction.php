@@ -28,8 +28,10 @@ if (isset($_POST['ad_login'])) {
         session_start();
         $_SESSION['ad_id'] = $id;
         $_SESSION['ad_email'] = $data['ad_email'];
-        echo "<Script>alert('Log in Success......');</Script>";
-        header('location:../dashboard.php');
+        echo "<Script>alert('Log in Success......');
+            window.open('../dashboard.php', '_self');        
+        </Script>";
+        // header('location:../dashboard.php');
     }
 }
 ?>
